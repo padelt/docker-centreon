@@ -17,49 +17,13 @@ We will mount external directories for all state that should not vanish when the
 
 You may place these folders somewhere else, just make sure you update the corresponding paths below.
 
-Note: Centreon will later rewrite the ndo2db.cfg file and insert its centreon_status-DB. It may be completely unnecessary to crate the DB and seed it with the data!
-
-(Not sure if needed) Now there needs to be a configuration file for NDOUtils/ndo2db. Place it in `/docker-store/centreon/nagios-etc/ndo2db.cfg` and change the db parameters to your situation.
-
-	ndo2db_user=nagios
-	ndo2db_group=nagios
-	socket_type=tcp
-	socket_name=/var/run/ndo.sock
-	tcp_port=5668
-	db_servertype=mysql
-	db_host=mysql.server.wherever
-	db_name=nagios
-	db_port=3306
-	db_prefix=nagios_
-	db_user=mysqlusername
-	db_pass=mysqlpassword
-	max_timedevents_age=1440
-	max_systemcommands_age=1440
-	max_servicechecks_age=1440
-	max_hostchecks_age=1440
-	max_eventhandlers_age=1440
-
-(Not sure if needed) Also, you need to seed the database with a table structure. The Initialize step (see below) will dump a `mysql.sql` file into the host's `etc` volume. Take that and apply it using the command line `mysql`tool, phpMyAdmin or whatever tool you have to work on the database you specified for `ndo2db.cfg`.
-
-
-## Initializing the container
+## Building the image
 
 First step you do with this repo (if you cloned it) is to
 
 	docker build -t centreon .
 
 it. Note that dot at the end referencing the current directory. Once that is done you have an image that you can run and that is tagged `centeron` for easier reference below.
-
-It is neccessary to run a contained script that will provide a `mysql.sql` file that you need to apply manually to the database as well as seed some initial Nagios configuration files. ONLY RUN THAT ONCE as it might overwrite your production configuration. Here we go:
-
-	docker run -i -t \
-	  -v /docker-store/centreon/nagios-etc:/usr/local/nagios/etc \
-	  -v /docker-store/centreon/nagios-var:/usr/local/nagios/var \
-	  -v /docker-store/centreon/centreon-var:/var/lib/centreon \
-	  -v /docker-store/centreon/centreon-etc:/etc/centreon \
-	  centreon /root/nagios/initialize.sh
-
-After that went well, apply `/docker-store/centreon/etc/mysql.sql` to the empty database.
 
 ## Running the container
 
@@ -118,7 +82,15 @@ Log Options tab:
 * Log Archive Path: /usr/local/nagios/var/archives/
 * State Retention File: /usr/local/nagios/var/retention.dat
 
-Now stop and restart the container to give `centcore` a chance to start.
+Now click Save and generate the Nagios configuration files:
+
+* `Configuration` -> `Monitoring Engine` -> Generate
+* Click `Export` to see if any errors pop up. If not:
+* Activate checkbox `Move Export Files`
+* Activate checkbox `Restart Monitoring Engine` (Method: Restart)
+* Click `Export`
+
+Then stop and restart the container to give `centcore` a chance to start.
 
 ## Troubleshooting
 
