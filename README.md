@@ -65,7 +65,7 @@ After that went well, apply `/docker-store/centreon/etc/mysql.sql` to the empty 
 
 Now that's the easy part, as long as you remember to connect the right volumes:
 
-	docker run -i -t -p 8100:8000 \
+	docker run -i -t -p 8100:80 \
 	  -v /docker-store/centreon/nagios-etc:/usr/local/nagios/etc \
 	  -v /docker-store/centreon/nagios-var:/usr/local/nagios/var \
 	  -v /docker-store/centreon/centreon-var:/var/lib/centreon \

@@ -90,8 +90,5 @@ ADD files/foreground.sh /etc/apache2/foreground.sh
 ADD files/supervisord.conf /etc/supervisord.conf
 RUN chmod 755 /start.sh
 RUN chmod 755 /etc/apache2/foreground.sh
-## Apache will be running in foreground mode as user www-data, so port 80 cannot be opened.
-#RUN sed -r --in-place 's/:80($|>)/:8000\1/' /etc/apache2/sites-available/default 
-#RUN sed --in-place 's/80$/8000/' /etc/apache2/ports.conf
 EXPOSE 80
 CMD ["/bin/bash", "/start.sh"]
