@@ -1,7 +1,5 @@
 FROM ubuntu:precise
 MAINTAINER Philipp Adelt <info@philipp.adelt.net>
-# Ensure using universe
-RUN sed -i s/main/'main universe'/ /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils
