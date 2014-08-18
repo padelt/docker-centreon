@@ -34,6 +34,7 @@ Now that's the easy part, as long as you remember to connect the right volumes:
 	  -v /docker-store/centreon/nagios-var:/usr/local/nagios/var \
 	  -v /docker-store/centreon/centreon-var:/var/lib/centreon \
 	  -v /docker-store/centreon/centreon-etc:/etc/centreon \
+	  -v /etc/localtime:/etc/localtime:ro \
 	  --privileged=true \
 	  centreon
 
@@ -91,6 +92,18 @@ Now click Save and generate the Nagios configuration files:
 * Click `Export`
 
 Then stop and restart the container to give `centcore` a chance to start.
+
+## Fixing MySQL permissions
+
+Centreon sets itself up with MySQL access rights from the IP address that the installation is
+running from. Inside a container, that IP very likely changes on restart, so it needs to be
+fixed.
+
+Look for the centreon enty in table `mysql.user` that is limited to `172.17.xx.yy` and
+change the host column to read `172.17.%`. `%` obviously works too.
+Do the same thing in the `mysql.db` database.
+
+Don't forget to `FLUSH PRIVILEGES;` before retrying.
 
 ## Troubleshooting
 

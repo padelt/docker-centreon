@@ -4,6 +4,10 @@ mkdir -p $BASE/var/spool/checkresults
 mkdir -p $BASE/var/archives/
 mkdir -p $BASE/var/log/
 mkdir -p $BASE/var/rw
+mkdir -p /var/lib/centreon/metrics/
+mkdir -p /var/lib/centreon/status/
+mkdir -p /var/lib/centreon/nagios-perf/
+mkdir -p /var/lib/centreon/centplugins/
 chown -R nagios:nagios $BASE/etc $BASE/var
 chown -R centreon:centreon /var/lib/centreon/ /etc/centreon
 chmod -R 775 $BASE/etc $BASE/var /var/lib/centreon /etc/centreon
