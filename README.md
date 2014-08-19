@@ -1,7 +1,7 @@
 # Dockerized Centreon 2.5.2
 
 This is NOT well-tested. It works on two different installations but the result you see evolved
-while getting it to this stage.
+while getting it to this stage..
 
 Please report any problems!
 
