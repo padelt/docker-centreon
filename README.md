@@ -40,6 +40,11 @@ Now that's the easy part, as long as you remember to connect the right volumes:
 
 The 8100 is the host TCP port under which the Apache Webserver inside the container will be available on the outside. Change as desired.
 
+The `/bin/bash` drops you in a shell in exactly the situation where the container
+normally would execute `/start.sh`. If you omit `/bin/bash`, exactly that will be done
+(as specified as the CMD statement in `Dockerfile`). While running the container with `bash`, try `/start.sh &` to start the "normal" stuff and still be able to look inside
+the container for logfiles etc.
+
 The need to run the container as a privileged container stems from the need to increase the `kernel.msgmnb` parameter.
 
 The Centreon daemon `centcore` will not start and end up in a supervisord-FATAL state. That is expected, as the following setup will need to create the configuration files first. Nevertheless, the web interface works already.
