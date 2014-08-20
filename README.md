@@ -29,16 +29,21 @@ it. Note that dot at the end referencing the current directory. Once that is don
 
 Now that's the easy part, as long as you remember to connect the right volumes:
 
-	docker run -i -t -p 8100:80 \
+	docker run -i -t -p 8100:80 --name centreon \
 	  -v /docker-store/centreon/nagios-etc:/usr/local/nagios/etc \
 	  -v /docker-store/centreon/nagios-var:/usr/local/nagios/var \
 	  -v /docker-store/centreon/centreon-var:/var/lib/centreon \
 	  -v /docker-store/centreon/centreon-etc:/etc/centreon \
 	  -v /etc/localtime:/etc/localtime:ro \
 	  --privileged=true \
-	  centreon
+	  centreon /bin/bash
 
 The 8100 is the host TCP port under which the Apache Webserver inside the container will be available on the outside. Change as desired.
+
+The `/bin/bash` drops you in a shell in exactly the situation where the container
+normally would execute `/start.sh`. If you omit `/bin/bash`, exactly that will be done
+(as specified as the CMD statement in `Dockerfile`). While running the container with `bash`, try `/start.sh &` to start the "normal" stuff and still be able to look inside
+the container for logfiles etc.
 
 The need to run the container as a privileged container stems from the need to increase the `kernel.msgmnb` parameter.
 
