@@ -24,7 +24,8 @@ First step you do with this repo (if you cloned it) is to
 	docker build -t centreon .
 
 or you can pull the build directly from Docker
-	docker pull vegasbrianc/docker-centreon
+
+	docker pull vegasbrianc/docker-centreon .
 
 it. Note that dot at the end referencing the current directory. Once that is done you have an image that you can run and that is tagged `centeron` for easier reference below.
 
