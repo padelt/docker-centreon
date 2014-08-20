@@ -1,7 +1,9 @@
 # Dockerized Centreon 2.5.2
 
-This is NOT well-tested. It works on two different installations but the result you see evolved
-while getting it to this stage.
+This is NOT well-tested. Please report all issues/requirements to either of the emails at the bottom of this page.  
+
+It works on two different installations but the result you see evolved
+while getting it to this stage..
 
 Please report any problems!
 
@@ -19,11 +21,15 @@ You may place these folders somewhere else, just make sure you update the corres
 
 ## Building the image
 
-First step you do with this repo (if you cloned it) is to
+First step you do with this repo (if you cloned it) is to build it. Note that dot at the end referencing the current directory. Once that is done you have an image that you can run and that is tagged `centeron` for easier reference below.
 
 	docker build -t centreon .
 
-it. Note that dot at the end referencing the current directory. Once that is done you have an image that you can run and that is tagged `centeron` for easier reference below.
+If your prefer to pull directly from Docker
+
+	docker pull vegasbrianc/docker-centreon
+
+
 
 ## Running the container
 
@@ -104,7 +110,7 @@ Centreon sets itself up with MySQL access rights from the IP address that the in
 running from. Inside a container, that IP very likely changes on restart, so it needs to be
 fixed.
 
-Look for the centreon enty in table `mysql.user` that is limited to `172.17.xx.yy` and
+Look for the centreon entry in table `mysql.user` that is limited to `172.17.xx.yy` and
 change the host column to read `172.17.%`. `%` obviously works too.
 Do the same thing in the `mysql.db` database.
 
@@ -141,5 +147,5 @@ Check for errors from ndo2db in syslog. See above.
 
 ## Contributors
 
-* Philipp Adelt <info@philipp.adelt.net>
-
+* Philipp Adelt (Primary) <info@philipp.adelt.net>
+* Brian Christner (Secondary) <brian.christner@gmail.com>
