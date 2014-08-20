@@ -54,6 +54,10 @@ RUN mkdir -p /var/log/nagios/rw
 RUN chown -R nagios:nagios /var/log/nagios
 RUN chmod -R 775 /var/log/nagios
 
+#Lets edit our MySQL File
+RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = localhost/" /etc/mysql/my.cnf
+RUN sed -i -e"s/^key_buffer\s*=\s*16M/key_buffer_size = 16M/" /etc/mysql/my.cnf
+
 # Now for the plugins
 WORKDIR /root/nagios/nagios-plugins-2.0.3
 RUN ./configure --with-nagios-user=nagios --with-nagios-group=nagios  2>&1 | tail -n 10
