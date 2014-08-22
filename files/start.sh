@@ -19,6 +19,8 @@ chmod -R g+w /var/log/nagios
 
 yes n | cp -i /root/centreon-etc/inst* /etc/centreon/ 2> /dev/null
 
+/usr/sbin/mysqld
+
 # Stop Centreon stumbling over its own feet...
 if [ -f /etc/centreon/conf.pm ]
 then
