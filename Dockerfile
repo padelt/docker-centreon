@@ -3,7 +3,7 @@ MAINTAINER Philipp Adelt <info@philipp.adelt.net>
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python2.7 libperl-dev mysql-client apache2 libapache2-mod-php5 python-setuptools nano mc vim-tiny php5-memcached php5-geoip php5-gd php5-ldap php5-imap php5-pgsql php5-mcrypt sudo heirloom-mailx lsb-release build-essential apache2 apache2-mpm-prefork php5 php5-mysql php-pear php5-ldap php5-snmp php5-gd mysql-server libmysqlclient-dev rrdtool librrds-perl libconfig-inifiles-perl libcrypt-des-perl libdigest-hmac-perl libdigest-sha-perl libgd-gd2-perl snmp snmpd libnet-snmp-perl libsnmp-perl libgd2-xpm libgd2-xpm-dev libpng12-dev postfix wget iputils-ping smbclient libssl-dev dnsutils fping less vim net-tools rsyslog
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python2.7 libperl-dev mysql-client apache2 libapache2-mod-php5 python-setuptools nano mc vim-tiny php5-memcached php5-geoip php5-gd php5-ldap php5-imap php5-pgsql php5-mcrypt sudo heirloom-mailx lsb-release build-essential apache2 apache2-mpm-prefork php5 php5-mysql php-pear php5-ldap php5-snmp php5-gd mysql-server libmysqlclient-dev rrdtool librrds-perl libconfig-inifiles-perl libcrypt-des-perl libdigest-hmac-perl libdigest-sha-perl libgd-gd2-perl snmp snmpd libnet-snmp-perl libsnmp-perl libgd2-xpm libgd2-xpm-dev libpng12-dev postfix wget iputils-ping smbclient libssl-dev dnsutils fping less vim net-tools rsyslog supervisor
 
 ADD files/bashrc /.bashrc
 
@@ -88,8 +88,6 @@ RUN adduser centreon www-data
 RUN mv /etc/centreon /root/centreon-etc
 
 # http://museum.php.net/php5/php-5.3.1.tar.bz2
-
-RUN easy_install supervisor
 ADD files/start.sh /start.sh
 ADD files/foreground.sh /etc/apache2/foreground.sh
 ADD files/supervisord.conf /etc/supervisord.conf
